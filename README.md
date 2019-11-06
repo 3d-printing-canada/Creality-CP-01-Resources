@@ -1,7 +1,7 @@
 # Creality-CP-01-Resources
 Tutorials and resources for the Creality CP-01 3-in-one printer
 
-## Availalbe Guides
+## Available Guides
 The Creality CP-01 is an extremely versatile 3-in-1 machine that can 3D print, CNC mill, and laser etch & engrave. It comes with three heads that are easily interchanged with one another, and can be used by the hobbyist that is looking to own just one machine for making a variety of projects and mediums instead of having to own two or even three machines. The following guides will be available on this github: 
 
 1) Slicing and printing 3D objects
