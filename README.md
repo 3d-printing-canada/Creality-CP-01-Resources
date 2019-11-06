@@ -12,8 +12,8 @@ The Creality CP-01 is an extremely versatile 3-in-1 machine that can 3D print, C
 ## Software 
 To take advantage of our guides, you will have to download some software to fully utilize the different aspects of the machine.
 
-For 3D Printing - Ultimaker Cura: https://ultimaker.com/software/ultimaker-cura
-For CNC Carving / 3D Design - Fusion 360: https://www.autodesk.com/campaigns/fusion-360-for-hobbyists
-For PCB Electronics design - Autodesk Eagle: https://www.autodesk.ca/en/products/eagle/free-download
-For creating PCB toolpaths - Rapid PCB web tool: https://carbide3d.com/apps/pcb/
+1) For 3D Printing - Ultimaker Cura: https://ultimaker.com/software/ultimaker-cura
+2) For CNC Carving / 3D Design - Fusion 360: https://www.autodesk.com/campaigns/fusion-360-for-hobbyists
+3) For PCB Electronics design - Autodesk Eagle: https://www.autodesk.ca/en/products/eagle/free-download
+4) For creating PCB toolpaths - Rapid PCB web tool: https://carbide3d.com/apps/pcb/
 
