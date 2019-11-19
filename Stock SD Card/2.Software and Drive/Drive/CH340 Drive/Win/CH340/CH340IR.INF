@@ -1,0 +1,102 @@
+; CH340IR.INF
+; Driver for CH340 (USB=>IRDA chip) V2.8
+; WDM for Windows 2000/XP
+; Copyright (C) W.ch 2001-2007
+;
+
+[Version]
+Signature   = "$Windows NT$"
+Class       = Infrared
+ClassGUID   = {6bdd1fc5-810f-11d0-BEC7-08002BE2092F}
+Provider    = %WinChipHead%
+DriverVer   = 09/18/2007, 2.8.2007.09
+
+[ControlFlags]
+ExcludeFromSelect = USB\VID_1A86&PID_7521
+ExcludeFromSelect = USB\VID_1A86&PID_5521
+ExcludeFromSelect = USB\VID_4348&PID_5521
+
+[Manufacturer]
+%WinChipHead% = WinChipHead
+
+[WinChipHead]
+%CH340IRDA.DeviceDesc% = CH340IRDA_Install, USB\VID_1A86&PID_7521
+%CH340IRDA.DeviceDesc% = CH340IRDA_Install, USB\VID_1A86&PID_5521
+%CH340IRDA.DeviceDesc% = CH340IRDA_Install, USB\VID_4348&PID_5521
+
+[CH340IRDA_Install.NT]
+LowerFilters          = CH341SER
+BusType               = 15
+Include               = netirsir.inf
+Needs                 = PNP.NT
+CopyFiles             = CH341SER.NT.CopyFiles.SYS
+AddReg                = CH341SER.NT.AddReg, CH341SER.AddReg
+PromptForPort         = 0
+LowerFilters          = CH341SER
+BusType               = 15
+Characteristics       = 0x4
+SyssetupPnPFlags=1
+
+[CH341SER.NT.CopyFiles.SYS]
+CH341SER.SYS, , , 2
+
+[CH341SER.NT.AddReg]
+HKR,,EnumPropPages32,,"MsPorts.dll,SerialPortPropPageProvider"
+
+[CH341SER.AddReg]
+HKLM, SOFTWARE\WinChipHead\IC\CH341SER, WDM, 0x00010001, 0x00000028
+HKLM, SOFTWARE\WinChipHead\IC\CH341SER, Function, , "USB=>Serial"
+;HKLM, SYSTEM\CurrentControlSet\Services\CH341SER, UserRemoval, 0x00010001, 0x00000001
+;上面这行用于在系统托盘中显示“安全删除USB转IRDA硬件设备”，便于用户手工删除硬件
+
+[CH340IRDA_Install.NT.HW]
+AddReg=SkipSerialPortAddReg
+
+[SkipSerialPortAddReg]
+HKR,"Device Parameters","SerialSkipExternalNaming",0x00010001, 1
+
+[CH340IRDA_Install.NT.Services]
+AddService = CH341SER, , CH341SER.Service
+AddService = irsir, 0x10a, SysIRSIR.AddService, common.EventLog
+
+[CH341SER.Service]
+DisplayName   = "CH341SER"
+ServiceType   = 1
+StartType     = 3
+ErrorControl  = 1
+ServiceBinary = %10%\System32\Drivers\CH341SER.SYS
+
+[SysIRSIR.AddService]
+DisplayName     = "irsir"
+ServiceType     = 1
+StartType       = 3
+ErrorControl    = 1
+ServiceBinary   = %12%\irsir.sys
+LoadOrderGroup  = NDIS
+
+[common.EventLog]
+AddReg = common.AddEventLog.reg
+
+[common.AddEventLog.reg]
+HKR, , EventMessageFile, 0x00020000, "%%SystemRoot%%\System32\netevent.dll"
+HKR, , TypesSupported,   0x00010001, 7
+
+[CH340IRDA_Install.NT.CoInstallers]
+AddReg                = SysIRSIR.CoInstallers.reg
+
+[SysIRSIR.CoInstallers.reg]
+HKR,,CoInstallers32,0x00010000,"IRCLASS.dll,IrSIRClassCoInstaller"
+
+[DestinationDirs]
+DefaultDestDir=12
+CH341SER.NT.CopyFiles.SYS = 12
+
+[SourceDisksFiles]
+CH341SER.SYS  = 1
+
+[SourceDisksNames]
+1 = "CH340 IrDA Installation Disk", CH340IR.INF, ,
+
+[Strings]
+WinChipHead      = "wch.cn"
+CH340IRDA.DeviceDesc = "USB-IrDA CH340"
